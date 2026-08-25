@@ -385,7 +385,13 @@ main {
   position: relative;
   padding-block: clamp(5rem, 10vw, 8.5rem);
   border-bottom: 1px solid var(--color-border);
-  background: rgb(11 11 11 / 76%);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(11 11 11 / 12%) 18%,
+    rgb(11 11 11 / 12%) 82%,
+    transparent 100%
+  );
 }
 
 .section > .container {
@@ -403,7 +409,13 @@ main {
 }
 
 .alternate {
-  background: rgb(17 17 17 / 80%);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(23 23 23 / 18%) 18%,
+    rgb(23 23 23 / 18%) 82%,
+    transparent 100%
+  );
 }
 
 .section .narrow > p:not(.eyebrow),
@@ -427,7 +439,8 @@ main {
   border-right: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
   border-radius: 0;
-  background: var(--color-surface);
+  background: rgb(17 17 17 / 72%);
+  backdrop-filter: blur(0.75rem);
   box-shadow: none;
   transition: background-color 180ms ease, border-color 180ms ease;
 }
@@ -443,7 +456,7 @@ main {
 
 .card:hover {
   border-color: var(--color-border-strong);
-  background: var(--color-surface-raised);
+  background: rgb(23 23 23 / 84%);
 }
 
 .card p:not(.card-label) {
@@ -494,13 +507,19 @@ main {
   min-height: 32rem;
   display: grid;
   place-items: center;
-  background: var(--color-text);
-  color: var(--color-background);
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgb(17 17 17 / 18%) 25%,
+    rgb(17 17 17 / 18%) 75%,
+    transparent
+  );
+  color: var(--color-text);
   text-align: center;
 }
 
 .contact::before {
-  color: #777772;
+  color: var(--color-border-strong);
 }
 
 .contact h2 {
@@ -509,18 +528,18 @@ main {
 
 .contact .eyebrow,
 .contact p {
-  color: #555550 !important;
+  color: #c0c0bb !important;
 }
 
 .contact .button.primary {
-  border-color: var(--color-background);
-  background: var(--color-background);
-  color: var(--color-text);
+  border-color: var(--color-text);
+  background: var(--color-text);
+  color: var(--color-background);
 }
 
 .contact .button.primary:hover {
   background: transparent;
-  color: var(--color-background);
+  color: var(--color-text);
 }
 
 .site-footer {
@@ -570,7 +589,7 @@ main {
   .hero-aurora {
     width: 120vw;
     filter: blur(4rem) saturate(120%);
-    opacity: 0.32;
+    opacity: 0.46;
   }
 
   .card-grid {
