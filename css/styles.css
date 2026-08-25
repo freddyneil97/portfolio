@@ -235,9 +235,10 @@ h3 {
 }
 
 .hero-aurora {
-  position: absolute;
+  position: fixed;
   top: 49%;
   left: 50%;
+  z-index: 0;
   width: min(72vw, 58rem);
   aspect-ratio: 1.35;
   translate: -50% -50%;
@@ -251,6 +252,7 @@ h3 {
   opacity: 0.38;
   pointer-events: none;
   animation: aurora-drift 14s ease-in-out infinite alternate;
+  will-change: translate, rotate, scale;
 }
 
 .hero-aurora::after {
@@ -379,7 +381,8 @@ h3 {
   position: relative;
   padding-block: clamp(5rem, 10vw, 8.5rem);
   border-bottom: 1px solid var(--color-border);
-  background: rgb(11 11 11 / 94%);
+  background: rgb(11 11 11 / 84%);
+  backdrop-filter: blur(0.65rem);
 }
 
 .section::before {
@@ -392,7 +395,7 @@ h3 {
 }
 
 .alternate {
-  background: rgb(17 17 17 / 96%);
+  background: rgb(17 17 17 / 88%);
 }
 
 .section .narrow > p:not(.eyebrow),
