@@ -480,6 +480,115 @@ main {
   text-transform: uppercase;
 }
 
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 1px;
+  border: 1px solid var(--color-border);
+  background: var(--color-border);
+}
+
+.badge-card {
+  position: relative;
+  display: grid;
+  min-height: 30rem;
+  grid-template-rows: 17rem 1fr;
+  overflow: hidden;
+  background: rgb(17 17 17 / 76%);
+  color: var(--color-text);
+  text-decoration: none;
+  backdrop-filter: blur(0.75rem);
+  transition: background-color 220ms ease, translate 220ms ease;
+}
+
+.badge-card::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  scale: 0 1;
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--color-cyan), var(--color-violet), var(--color-orange));
+  content: "";
+  transition: scale 260ms ease;
+}
+
+.badge-card:hover {
+  background: rgb(23 23 23 / 88%);
+  translate: 0 -0.25rem;
+}
+
+.badge-card:hover::after,
+.badge-card:focus-visible::after {
+  scale: 1 1;
+}
+
+.badge-image {
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid var(--color-border);
+  background: rgb(255 255 255 / 3%);
+}
+
+.badge-image img {
+  display: block;
+  width: min(100%, 13rem);
+  height: 13rem;
+  object-fit: contain;
+  filter: drop-shadow(0 1rem 2rem rgb(0 0 0 / 38%));
+  transition: scale 260ms ease, rotate 260ms ease;
+}
+
+.badge-card:hover .badge-image img {
+  rotate: -1.5deg;
+  scale: 1.04;
+}
+
+.badge-details {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.badge-issuer,
+.badge-date,
+.badge-action {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge-issuer {
+  margin-bottom: 0.75rem;
+  color: var(--color-muted);
+}
+
+.badge-details strong {
+  max-width: 20ch;
+  margin-bottom: 0.7rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.badge-date {
+  color: var(--color-muted);
+}
+
+.badge-action {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
 .experience-item {
   display: grid;
   grid-template-columns: 1fr auto;
