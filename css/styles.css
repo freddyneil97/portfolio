@@ -3,9 +3,9 @@
   These custom properties are reusable design values (also called tokens).
 */
 :root {
-  --color-background: #f7f5f0;
-  --color-surface: #ffffff;
-  --color-text: #20231f;
+  --color-background: #000000;
+  --color-surface: #000000;
+  --color-text: #f7f5f0;
   --color-muted: #62675f;
   --color-accent: #285943;
   --color-accent-dark: #173d2c;
