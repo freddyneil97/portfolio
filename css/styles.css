@@ -198,6 +198,10 @@ h3 {
   color: var(--color-text);
 }
 
+main {
+  isolation: isolate;
+}
+
 .hero {
   position: relative;
   display: grid;
@@ -230,7 +234,7 @@ h3 {
 
 .hero .narrow {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 72rem;
 }
 
@@ -238,7 +242,7 @@ h3 {
   position: fixed;
   top: 49%;
   left: 50%;
-  z-index: 0;
+  z-index: 1;
   width: min(72vw, 58rem);
   aspect-ratio: 1.35;
   translate: -50% -50%;
@@ -249,7 +253,7 @@ h3 {
     radial-gradient(circle at 30% 82%, var(--color-orange), transparent 40%),
     radial-gradient(circle at 76% 76%, var(--color-lime), transparent 36%);
   filter: blur(4.5rem) saturate(125%);
-  opacity: 0.38;
+  opacity: 0.5;
   pointer-events: none;
   animation: aurora-drift 14s ease-in-out infinite alternate;
   will-change: translate, rotate, scale;
@@ -381,8 +385,12 @@ h3 {
   position: relative;
   padding-block: clamp(5rem, 10vw, 8.5rem);
   border-bottom: 1px solid var(--color-border);
-  background: rgb(11 11 11 / 84%);
-  backdrop-filter: blur(0.65rem);
+  background: rgb(11 11 11 / 76%);
+}
+
+.section > .container {
+  position: relative;
+  z-index: 2;
 }
 
 .section::before {
@@ -395,7 +403,7 @@ h3 {
 }
 
 .alternate {
-  background: rgb(17 17 17 / 88%);
+  background: rgb(17 17 17 / 80%);
 }
 
 .section .narrow > p:not(.eyebrow),
