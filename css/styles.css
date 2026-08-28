@@ -425,6 +425,42 @@ main {
   font-size: 1.05rem;
 }
 
+.about-photo {
+  position: relative;
+  width: min(100%, 32rem);
+  margin: clamp(3rem, 7vw, 5rem) auto 0;
+  padding: 0.45rem;
+  border: 1px solid var(--color-border);
+  background: rgb(17 17 17 / 46%);
+}
+
+.about-photo::before {
+  position: absolute;
+  top: -1.75rem;
+  left: 0;
+  color: var(--color-muted);
+  content: "// at the workspace";
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.about-photo::after {
+  position: absolute;
+  right: -0.4rem;
+  bottom: -0.65rem;
+  color: var(--color-cyan);
+  content: "+";
+  font-family: var(--font-mono);
+}
+
+.about-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
