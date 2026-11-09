@@ -516,6 +516,15 @@ main {
   text-transform: uppercase;
 }
 
+.card.project-feature > a {
+  position: static;
+  margin-top: 1.5rem;
+}
+
+.workflow-list li + li {
+  margin-top: 1rem;
+}
+
 .badge-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));

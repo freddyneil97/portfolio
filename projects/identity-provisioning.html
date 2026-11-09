@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Frederick Neil's identity provisioning lab: an Entra ID onboarding workflow built with C#, Microsoft Graph, SQLite and Docker.">
+    <title>Identity Provisioning Platform | Frederick Neil</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/main.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="site-header">
+      <div class="container header-layout">
+        <a class="site-name" href="../index.html">Frederick Neil</a>
+        <nav aria-label="Primary navigation">
+          <ul class="nav-list">
+            <li><a href="../index.html#projects">All projects</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content">
+      <div class="hero-aurora" aria-hidden="true"></div>
+      <section class="hero">
+        <div class="container narrow">
+          <p class="eyebrow">Identity &amp; access management &middot; Lab MVP</p>
+          <h1>Identity Provisioning Platform</h1>
+          <p class="hero-summary">
+            A working onboarding portal that turns employee details into a reviewed,
+            traceable Microsoft Entra ID account-creation workflow.
+          </p>
+          <div class="button-group">
+            <a class="button primary" href="https://idam.n8nfred.uk/">Open demo &mdash; authorised sign-in required</a>
+            <a class="button secondary" href="#workflow">Explore the workflow</a>
+          </div>
+          <p class="muted">Built and deployed in an isolated test tenant. Updated November 2026.</p>
+        </div>
+      </section>
+      <section class="section" id="problem">
+        <div class="container narrow">
+          <p class="eyebrow">The problem</p>
+          <h2>Making onboarding consistent and reviewable</h2>
+          <p>
+            Manual account creation repeats the same naming and attribute decisions for every
+            new starter. I built this lab project to explore how an operator portal can reduce
+            repetitive steps, make proposed changes visible before execution, and keep a
+            request history alongside the directory changes.
+          </p>
+          <p>
+            The platform builds on my earlier
+            <a href="https://github.com/freddyneil97/AD_Automation">Active Directory automation script</a>.
+            The current MVP implements Entra ID provisioning; a Windows AD or Samba connector
+            remains future work.
+          </p>
+        </div>
+      </section>
+      <section class="section alternate" id="workflow">
+        <div class="container narrow">
+          <p class="eyebrow">Working implementation</p>
+          <h2>From employee details to a disabled account</h2>
+          <ol class="workflow-list">
+            <li>Sign in with Microsoft Entra ID. Access is restricted to an operator security group.</li>
+            <li>Enter the employee's name, department and job title. The service generates an available username in the configured verified lab domain.</li>
+            <li>Review the proposed identity and provisioning steps, then explicitly confirm the request.</li>
+            <li>Create the Entra account in a disabled state through Microsoft Graph, then check that it exists.</li>
+            <li>Inspect the result, request status and audit history stored in SQLite.</li>
+          </ol>
+        </div>
+      </section>
+      <section class="section" id="engineering">
+        <div class="container">
+          <p class="eyebrow">Engineering decisions</p>
+          <h2>Application, directory and deployment</h2>
+          <div class="card-grid">
+            <article class="card">
+              <p class="card-label">Application</p>
+              <h3>C# and ASP.NET Core</h3>
+              <p>Razor Pages provide the operator workflow. Separate engine and connector projects keep planning and Microsoft Graph integration apart from the interface.</p>
+            </article>
+            <article class="card">
+              <p class="card-label">Traceability</p>
+              <h3>Persistent request history</h3>
+              <p>SQLite stores requests and audit entries. Status changes and their audit entries share a database transaction. Docker volumes retain the database across container recreation.</p>
+            </article>
+            <article class="card">
+              <p class="card-label">Deployment</p>
+              <h3>Docker on a Linux VPS</h3>
+              <p>A non-root application container runs behind Traefik with HTTPS and Cloudflare DNS/proxying. Forwarded HTTPS headers are accepted only from the configured trusted proxy.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section alternate" id="validation">
+        <div class="container narrow">
+          <p class="eyebrow">Evidence and limits</p>
+          <h2>What I tested and learned</h2>
+          <p>
+            I verified account creation in the Entra lab, including a custom verified username
+            domain, and tested access to the VPS-hosted dashboard. The solution also passes
+            27 automated tests covering core models, planning, state transitions, operator-bound
+            review tokens, concurrent submission, audit transaction rollback, simulated provider
+            failures and trusted-proxy handling.
+          </p>
+          <p>
+            A key lesson was that a failed provider response does not prove a directory write
+            failed. The workflow flags uncertain execution for investigation rather than
+            automatically repeating account creation.
+          </p>
+          <h3>Next steps</h3>
+          <p>
+            This is a lab MVP. Planned work includes independent lab-target safeguards,
+            stronger approval and plan-integrity checks, verification of the exact created
+            object and disabled state, recovery after interrupted jobs, and an AD-compatible
+            provisioning connector. Group assignment, licensing and secure initial-credential
+            delivery are outside the current implementation.
+          </p>
+        </div>
+      </section>
+      <section class="section contact">
+        <div class="container narrow">
+          <h2>Discuss the project</h2>
+          <p>The live lab requires an authorised operator account. Contact me for a guided demonstration or to discuss the design and implementation.</p>
+          <a class="button primary" href="mailto:freddyneil28@gmail.com">Request a walkthrough</a>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-layout">
+        <p>&copy; <span id="current-year">2026</span> Frederick Neil</p>
+        <ul class="social-list" aria-label="Social links">
+          <li><a href="../index.html#projects">All projects</a></li>
+          <li><a href="https://github.com/freddyneil97">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/frederick-neil-354715139/">LinkedIn</a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>
