@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Frederick Neil's identity provisioning lab: an Entra ID onboarding workflow built with C#, Microsoft Graph, SQLite and Docker.">
+    <meta name="description" content="Frederick Neil's identity provisioning lab: Entra ID joiner and leaver workflows built with C#, Microsoft Graph, SQLite and Docker.">
     <title>Identity Provisioning Platform | Frederick Neil</title>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/main.js" defer></script>
@@ -28,8 +28,8 @@
           <p class="eyebrow">Identity &amp; access management &middot; Lab MVP</p>
           <h1>Identity Provisioning Platform</h1>
           <p class="hero-summary">
-            A working onboarding portal that turns employee details into a reviewed,
-            traceable Microsoft Entra ID account-creation workflow.
+            A Docker-hosted identity administration portal with reviewed Microsoft Entra ID
+            joiner and leaver workflows, persistent requests and an audit trail.
           </p>
           <div class="button-group">
             <a class="button primary" href="https://idam.n8nfred.uk/">Open demo &mdash; authorised sign-in required</a>
@@ -41,7 +41,7 @@
       <section class="section" id="problem">
         <div class="container narrow">
           <p class="eyebrow">The problem</p>
-          <h2>Making onboarding consistent and reviewable</h2>
+          <h2>Making identity changes consistent and reviewable</h2>
           <p>
             Manual account creation repeats the same naming and attribute decisions for every
             new starter. I built this lab project to explore how an operator portal can reduce
@@ -67,6 +67,13 @@
             <li>Create the Entra account in a disabled state through Microsoft Graph, then check that it exists.</li>
             <li>Inspect the result, request status and audit history stored in SQLite.</li>
           </ol>
+          <h3>Review and confirm a leaver request</h3>
+          <p>Look up an eligible cloud-only lab identity, supply a reason, review the plan,
+            then type the exact username and confirm. The workflow disables sign-in where needed,
+            requests session revocation and verifies the same account's disabled state.</p>
+          <p>Targets must be platform-managed or explicitly allowed by object ID. Self-offboarding
+            and configured protected accounts are blocked. Accounts, groups, licences and mailboxes
+            are retained; session revocation does not guarantee immediate termination of every session.</p>
         </div>
       </section>
       <section class="section" id="engineering">
@@ -97,16 +104,17 @@
           <p class="eyebrow">Evidence and limits</p>
           <h2>What I tested and learned</h2>
           <p>
-            I verified account creation in the Entra lab, including a custom verified username
-            domain, and tested access to the VPS-hosted dashboard. The solution also passes
-            27 automated tests covering core models, planning, state transitions, operator-bound
+            I completed joiner and leaver requests in the Entra lab from the VPS-hosted dashboard,
+            using a custom verified username domain. The solution also passes
+            54 automated tests covering core models, planning, state transitions, operator-bound
             review tokens, concurrent submission, audit transaction rollback, simulated provider
-            failures and trusted-proxy handling.
+            failures, leaver target safeguards, browser disconnection and trusted-proxy handling.
           </p>
           <p>
             A key lesson was that a failed provider response does not prove a directory write
             failed. The workflow flags uncertain execution for investigation rather than
-            automatically repeating account creation.
+            automatically repeating account creation. Approved joiner execution now has its own bounded
+            timeout so a browser disconnect does not cancel verification and recording of the outcome.
           </p>
           <h3>Next steps</h3>
           <p>
